@@ -13,9 +13,16 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
   },
   "dependencies": {
+    "@emotion/core": "^10.0.10",
+    "@mdx-js/mdx": "^1.0.0-rc.4",
+    "@mdx-js/react": "^1.0.0-rc.5",
     "gatsby": "^2.5.4",
+    "gatsby-mdx": "^0.6.3",
+    "gatsby-plugin-emotion": "^4.0.6",
+    "gatsby-source-filesystem": "^2.0.36",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "react-icons": "^3.7.0"
   },
   "devDependencies": {
     "prettier": "^1.17.1"
