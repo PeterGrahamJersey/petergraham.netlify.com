@@ -1,17 +1,14 @@
 import React from "react"
 import { css } from "@emotion/core"
 
-import { graphql, Link } from 'gatsby'
+import { graphql } from 'gatsby'
 import Header from '../components/header.js'
 import Footer from '../components/footer.js'
 import Layout from '../components/layout.js'
-import Content from '../components/content.js'
+import Main from '../components/main.js'
+import BlogCard from '../components/blog-card.js'
 
 const styles = `
-  .blog-post-link a {
-    color:black;
-    text-decoration:none;
-  }
 `;
 
 const Index = ({ data }) => {
@@ -19,24 +16,16 @@ const Index = ({ data }) => {
     <div css={css(styles)}>
       <Layout>
         <Header/>
-        <Content>
+        <Main>
             <p>I am a Data Analyst working for 15gifts in Brighton.</p>
             <div>
             {data.allMdx.edges.map(({ node }) => {
               return (
-                <div key={node.id} className='blog-post-link'>
-                  <Link>
-                    <div>
-                      <h3 css={{display:'inline-block'}}>{node.frontmatter.title}</h3>
-                      <p css={{display:'inline-block'}}>{node.frontmatter.date}</p>
-                    </div>
-                    <p>{node.excerpt}</p>
-                  </Link>
-                </div>
+                <BlogCard post={node}/>
               )
             })}
             </div>
-        </Content>
+        </Main>
         <Footer/>
       </Layout>
     </div>

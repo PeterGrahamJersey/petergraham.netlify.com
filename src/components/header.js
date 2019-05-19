@@ -15,8 +15,9 @@ const styles = `
     text-decoration:none;
     color:black;
   }
-  a h2 {
-    line-height:0;
+
+  h2 {
+    margin-bottom:0rem
   }
 
   ul li{

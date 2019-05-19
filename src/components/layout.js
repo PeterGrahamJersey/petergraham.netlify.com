@@ -3,12 +3,15 @@ import { css, jsx } from "@emotion/core"
 
 const styles = `
     display: grid;
-    grid-template-columns: 1fr 700px 1fr;
+    grid-template-columns: 1fr 600px 1fr;
     grid-template-areas:
       ". header ."
-      ". content ."
+      ". main ."
       ". footer .";
     justify-items: left;
+
+    margin-top: 3rem;
+    margin-bottom: 3rem;
 `;
 
 const Layout = ({children}) => {

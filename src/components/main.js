@@ -2,10 +2,15 @@
 import { css, jsx } from "@emotion/core"
 
 const styles = `
-  grid-area:content;
+  grid-area:main;
+  width:100%;
+
+  .subtitle {
+
+  }
 `
 
-const Content = ({children}) => {
+const Main = ({children}) => {
   return (
     <div css={css(styles)}>
       {children}
@@ -13,4 +18,4 @@ const Content = ({children}) => {
   )
 }
 
-export default Content;
+export default Main;
