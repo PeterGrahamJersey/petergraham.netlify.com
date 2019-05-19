@@ -4,10 +4,6 @@ import { css, jsx } from "@emotion/core"
 const styles = `
   grid-area:main;
   width:100%;
-
-  .subtitle {
-
-  }
 `
 
 const Main = ({children}) => {
