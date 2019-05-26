@@ -23,22 +23,26 @@ Our first step in making any analysis self-contained is giving it a dedicated fo
 
 It is easy to rely on full file paths in our code:
 
-    read_csv('petergraham/work/analysis-1/data/kpis.csv')
+```r
+read_csv('petergraham/work/analysis-1/data/kpis.csv')
+```
 
 Unfortunately,  these are incredibly fragile. Scripts containing them will break with any changes to folder structure, and will not work on another computer without editing.
 
-Instead of the full file path, we can simplify our code and make it less fragile by using `.` to refer to the current working directory (`..`refers to the parent directory, which can also come in handy). If we set our working directory to the dedicated folder for this analysis, then we can replace the above example with:
+Instead of the full file path, we can simplify our code and make it less fragile by using `r>.` to refer to the current working directory (`r>..`refers to the parent directory, which can also come in handy). If we set our working directory to the dedicated folder for this analysis, then we can replace the above example with:
 
-    read_csv('./data/kpis.csv')
+```r
+read_csv('./data/kpis.csv')
+```
 
 Provided the working directory is set before running the analysis, all our file references will work no matter where we move our folder or whose computer we access it on.
 
 How you set the working directory varies slightly depending on how you run your code:
 
-- **Terminal/Command Line:** `cd petergraham/work/analysis-1`
-- **R console:** `setwd('petergraham/work/analysis-1')`
+- **Terminal/Command Line:** `bash>cd petergraham/work/analysis-1`
+- **R console:** `r>setwd('petergraham/work/analysis-1')`
 - **RStudio:** either of the above would work, but I'd recommend making use of [Projects](https://medium.com/r/?url=https%3A%2F%2Fsupport.rstudio.com%2Fhc%2Fen-us%2Farticles%2F200526207-Using-Projects)
-- **Python:** `os.chdir('petergraham/work/analysis-1')`
+- **Python:** `py>os.chdir('petergraham/work/analysis-1')`
 - **Jupyter/R Notebooks:** by default, the working directory is the folder that the notebook is saved in
 
 #### Run things from scratch every so often
@@ -53,12 +57,14 @@ Testing is an important part of any code-based work and this is no different for
 
 Now that our analyses have dedicated folders, we can make them easier to understand by following a consistent structure. There are many suggestions online for possible folder structures, but they share common elements. A general structure might look like this:
 
-    analysis-1/
-    |-- master.R (or master.ipynb)
-    |-- data/
-    |-- output/
-    |-- functions/
-    '-- sql/
+```
+analysis-1/
+|-- master.R (or master.ipynb)
+|-- data/
+|-- output/
+|-- functions/
+'-- sql/
+```
 
 - **master.R** ties together the entire analysis. From this one file, we should be able to understand the approach used and to execute the entire analysis (or at least know how the steps needed to run it).
 - **data/** contains raw data used in the analysis and is usually treated as read-only.
@@ -78,32 +84,38 @@ The goal of the master script is to provide a single place to run and understand
 
 Instead of:
 
-    # master.R
-    library(tidyverse)
+```r
+# master.R
+library(tidyverse)
 
-    raw_data <- read_csv('./data/kpis.csv')
+raw_data <- read_csv('./data/kpis.csv')
 
-    prepared_data <- raw_data
-    names(prepared_data) <- str_to_lower(names(prepared_data))
-    prepared_data$conversion_rate <-
-    prepared_data$conversions / prepared_data$visitors
-    # any other data preparation...
+prepared_data <- raw_data
+names(prepared_data) <- str_to_lower(names(prepared_data))
+prepared_data$conversion_rate <-
+prepared_data$conversions / prepared_data$visitors
+# any other data preparation...
+```
 
 we keep master.R simple by moving the data preparation to a function:
 
-    # master.R
-    library(tidyverse)
-    source('./R/prepare_data.R')
-    raw_data <- read_csv('./data/kpis.csv')
-    prepared_data <- prepare_data(raw_data)
+```r
+# master.R
+library(tidyverse)
+source('./R/prepare_data.R')
+raw_data <- read_csv('./data/kpis.csv')
+prepared_data <- prepare_data(raw_data)
+```
 
-    # /R/prepare_data.R
-    prepare_data <- function(df) {
-      prepared_data <- df
-      names(prepared_data) <- str_to_lower(names(prepared_data))
-      prepared_data$conversion_rate <- prepared_data$conversions / prepared_data$visitors
-      # any other data preparation...
-    }
+```r
+# /R/prepare_data.R
+prepare_data <- function(df) {
+  prepared_data <- df
+  names(prepared_data) <- str_to_lower(names(prepared_data))
+  prepared_data$conversion_rate <- prepared_data$conversions / prepared_data$visitors
+  # any other data preparation...
+}
+```
 
 One approach is to work in the main script or notebook most of the time, but periodically take time to move detailed or repeated code into functions. Waiting until the end of the analysis to do so is generally less effective, as it can feel hard to justify this instead of moving on to the next task.
 
@@ -113,11 +125,15 @@ Aside from making the master file more readable, using functions prompts us to m
 
 It takes less than a minute to add a sentence or two about why we took a certain approach or the inputs and outputs of a function, but doing so saves priceless time in future, e.g.
 
-    # Converting kpi counts to rates
+```r
+# Converting kpi counts to rates
+```
 
 For more complex scripts, comments can also be used to create sections to help structure code:
 
-    # Getting Data -------------------------
+```r
+# Getting Data -------------------------
+```
 
 At this point, however, Notebooks (e.g. R Markdown or Jupyter) may offer a more effective way to combine structure, description and code.
 
@@ -126,7 +142,7 @@ At this point, however, Notebooks (e.g. R Markdown or Jupyter) may offer a more 
 To enable our analyses to be re-run in future, and on other computers, we aim for them to be self-contained and understandable. We achieve this by:
 
 - Containing each analysis in its own folder that follows a standard structure
-- Using relative file paths (`.`)
+- Using relative file paths (`r>.`)
 - Restarting R/Python to test that analyses are self-contained
 - Using a main notebook/script to tie an entire analysis together, with the details moved into functions
 - Commenting our code

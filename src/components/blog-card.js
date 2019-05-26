@@ -6,6 +6,7 @@ const styles = `
   margin-bottom:1rem;
 
   .card-box {
+    border-left: 5px solid #76BA8F;
     -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
     -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
@@ -13,7 +14,7 @@ const styles = `
   }
 
   a {
-    color:black;
+    color:inherit;
     text-decoration:none;
   }
 

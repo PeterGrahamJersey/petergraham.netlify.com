@@ -11,9 +11,20 @@ module.exports = {
     {
       resolve: `gatsby-mdx`,
       options: {
+        extensions: ['.mdx', '.md'],
         defaultLayouts: {
           default: require.resolve("./src/templates/blogpost.js")
-        }
+        },
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              classPrefix: 'language-',
+              inlineCodeMarker: '>',
+              aliases: {},
+            },
+          }
+        ]
       }
     },
     {

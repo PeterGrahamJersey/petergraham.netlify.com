@@ -13,7 +13,7 @@ const styles = `
 
   a {
     text-decoration:none;
-    color:black;
+    color:inherit;
   }
 
   h2 {
@@ -23,7 +23,6 @@ const styles = `
   ul li{
     display:inline-block;
   }
-
 `;
 
 const Header = () => {
@@ -36,8 +35,8 @@ const Header = () => {
         <p>Data Analyst, Brighton (UK)</p>
       </div>
       <ul>
-        <li><a href='https://github.com/PeterGrahamJersey' target='_blank' rel="noopener noreferrer"><FaGithubSquare size='1.5rem'/></a></li>
-        <li><a href='https://www.linkedin.com/in/peter-graham/' target='_blank' rel="noopener noreferrer"><FaLinkedin size='1.5rem'/></a></li>
+        <li><a href='https://github.com/PeterGrahamJersey' target='_blank' rel="noopener noreferrer"><FaGithubSquare size='1.5rem' color='#76BA8F'/></a></li>
+        <li><a href='https://www.linkedin.com/in/peter-graham/' target='_blank' rel="noopener noreferrer"><FaLinkedin size='1.5rem' color='#76BA8F'/></a></li>
       </ul>
     </div>
   )
