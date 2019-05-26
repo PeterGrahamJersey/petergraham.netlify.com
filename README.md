@@ -7,10 +7,11 @@ My personal website, built partly as a learning experience and partly to host co
 
 ## ToDo
 
-* Site/Page Metadata
+* ✅ Site/Page Metadata
 * Styling and syntax Highlighting for code
 * Add an image to each blog post
 * Expand Bio
+* Expand Metadata (keywords, canonical links)
 
 # Technology
 

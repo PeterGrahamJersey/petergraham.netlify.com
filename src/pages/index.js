@@ -7,6 +7,7 @@ import Footer from '../components/footer.js'
 import Layout from '../components/layout.js'
 import Main from '../components/main.js'
 import BlogCard from '../components/blog-card.js'
+import HelmetFunc from '../components/helmet.js'
 
 const styles = `
 `;
@@ -14,6 +15,7 @@ const styles = `
 const Index = ({ data }) => {
   return (
     <div css={css(styles)}>
+      <HelmetFunc/>
       <Layout>
         <Header/>
         <Main>
