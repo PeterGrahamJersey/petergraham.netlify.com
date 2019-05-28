@@ -23,6 +23,12 @@ module.exports = {
               inlineCodeMarker: '>',
               aliases: {},
             },
+          },
+          {
+            resolve: "gatsby-remark-images",
+            options: {
+              maxWidth: 600
+            }
           }
         ]
       }
@@ -40,6 +46,8 @@ module.exports = {
         pathToConfigModule: `src/utils/typography`,
       }
     },
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
