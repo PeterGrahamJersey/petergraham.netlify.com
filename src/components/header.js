@@ -29,7 +29,7 @@ const Header = () => {
   return (
     <div css={css(styles)}>
       <div>
-        <Link to='/'>
+        <Link to=''>
           <h2>Peter Graham</h2>
         </Link>
         <p>Data Analyst, Brighton (UK)</p>
