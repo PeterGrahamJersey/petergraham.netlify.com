@@ -9,7 +9,7 @@ My personal website, built partly as a learning experience and partly to host co
 
 * ✅ Site/Page Metadata
 * ✅ Styling and syntax Highlighting for code
-* Add an image to each blog post
+* ✅ Add an image to each blog post
 * Expand Bio
 * Expand Metadata (keywords, canonical links)
 
