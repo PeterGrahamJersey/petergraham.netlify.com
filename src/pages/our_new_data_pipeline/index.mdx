@@ -1,0 +1,61 @@
+---
+title: 'Our Data Pipeline'
+date: '06/07/2019'
+featuredImage: "./our_new_data_pipeline.jpg"
+---
+
+The data team is happier, reports are more reliable and we can spend time answering more interesting questions, all thanks to our new data pipeline. Here is what we are using and why.
+
+![A diagram of our data pipeline. Event logs from live clients are fed through Kinesis Firehose to S3 Buckets. Snowpipe then pipes these into the raw events table of our Snowflake data warehouse. Client config data and hardcoded lookups in google sheets are imported into reference tables in our data warehouse using Fivetran. dbt transforms the raw events and reference tables into more useful tables and views.](./our_new_data_pipeline.jpg)
+*A high-quality representation of our data pipeline.*
+
+### Motivation
+Our old data warehouse was complicated - it relied on too many technologies supplemented by some manually executed scripts. This complexity and a lack of transparency in how the data was transformed, made it inflexible and difficult to maintain. With the business planning to take on new and larger clients it was time to sort out a more robust data pipeline that:
+
+* Provided a single source of truth
+* Was transparent and could be maintained by the data team
+* Scaled easily
+* Supported separate regional instances (for international clients)
+* Supported near-live data
+
+### Solution
+Our research suggested that an extract, load, transform (ELT) structure - as opposed to the more traditional ETL structure - would best suit our need for the pipeline to be maintained by the data team. The remaining needs prompted us to search for cloud-based tools that could be scaled as required.
+
+After over half a year of hard work we have implemented:
+
+* A **[Snowflake](https://www.snowflake.com/)** data warehouse
+* An events pipeline based in Amazon Web Services (AWS). Events make their way from logs to **[S3 bucket](https://aws.amazon.com/s3/)** via **[Kinesis Firehose](https://aws.amazon.com/kinesis/data-firehose/)** and then via **[Snowpipe](https://docs.snowflake.net/manuals/user-guide/data-load-snowpipe-intro.html)** into the raw events table in the data warehouse.
+* **[Fivetran](https://fivetran.com/)** to import reference data from production databases (product config) and google sheets (hard-coded lookups)
+* **[dbt](https://www.getdbt.com/)** (Data Build Tool) to transform the raw events and reference tables into more useful models
+
+#### Data Warehouse
+We chose **Snowflake** for our Data Warehouse. Being cloud-based, once initial set-up was complete, Snowflake should scale effectively without creating additional work for our dev team. So far it is working well:
+
+* Performance has seen a notable improvement over our old set-up and is easier to control.
+* Connecting to other software generally works. There have been a few hiccups due to Snowflake being fairly new, but as it becomes more established the necessary drivers and support are becoming available.
+* Cost-wise it seems comparable to other data warehouses and, once in regular use, it is more transparent about where costs are incurred.
+* Its support for querying JSON objects directly has been crucial to our ELT implementation. Our most raw events table has just two columns: 'piped_date_time' and 'event_json'.
+
+In the warehouse alongside a core database, we have set-up separate databases for each member of the data team, allowing experimentation with new and existing tables at no risk of cluttering or breaking anything important. While never part of our original plan, this structure has been very effective and is facilitated by Snowflake's ability to both create clones of a database at no additional storage cost and to query across databases.
+
+#### Event Pipeline
+The events pipeline needed to take our event logs, store them somewhere and finally insert them into the raw events table in Snowflake.
+
+To improve our support for near-live data in future, our dev team implemented **Kinesis Firehose** to stream event logs into the **S3 buckets** for storage. An agent monitors the event logs, and when new items are added, pushes these to Firehose. The previous pipeline already used S3 buckets but as these met all of our needs, and with our dev team leaning towards AWS infrastructure more generally, it made sense to leave these as they were. Finally, **Snowpipe** takes new events from the buckets and inserts these into the raw events table in Snowflake.
+
+This process required the most support from our dev team to get up and running, but once in place has worked well. Beyond scaling in terms of data quantity, it will also easily enable us to create separate event streams for different regions and for client testing environments.
+
+#### Reference Data
+In addition to the events pipeline, reference data such as product configuration and hard-coded lookup tables needed to reach the data warehouse. **Fivetran** worked as a solution in both cases, keeping our overall pipeline management and structure simple. We were initially sceptical of the 'set-up in minutes' claims, but adding connections to our production databases and Google Sheets look-up tables proved simple and quick.
+
+#### Transformation
+The final step of the ELT approach is transformation, taking the base reference and events tables and creating more useful models.
+
+After some research, we settled on **dbt**, an open-source data transformation tool created by [Fishtown Analytics](https://blog.fishtownanalytics.com/). At its core dbt allows us to define models (tables) and the order in which they should be built using just SQL, a language familiar to our entire data team. Combined with a GitHub repo, this allows everyone to be involved in maintaining and expanding upon the models in our data warehouse with version and quality control built into the process.
+
+dbt has been fundamental to the success and simplicity of our ELT process. Although SQL at its core, it combines this with [Jinja](http://jinja.pocoo.org/) - a templating engine - expanding its functionality and enabling us to replicate even our more complex Python scripts with ease.
+
+We were so impressed by dbt that we ended up taking on Fishtown Analytics as consultants to help us implement some of the more complex raw events processing. Before, during and after their actual contracted time they provided valuable advice and we are grateful for their support.
+
+### Results
+Our data team is really pleased with how the new pipeline is working. dbt, in particular, has been a huge change in our workflow, and our first machine learning model leveraging tables built with it has recently gone live. Beyond expanding our models, the next steps for the pipeline are largely process-based: implementing more rigorous testing, improving quality control and deciding what makes a model important enough to belong in the main database.
