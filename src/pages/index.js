@@ -42,7 +42,7 @@ export default Index;
 // Page Data
 export const query = graphql`
   query {
-    allMdx {
+    allMdx(sort:{fields: [frontmatter___date], order: ASC}){
       edges {
         node {
           id
