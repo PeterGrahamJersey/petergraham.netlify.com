@@ -12,6 +12,14 @@ const styles = `
 
     margin-top: 3rem;
     margin-bottom: 3rem;
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "header"
+        "main"
+        "footer";
+    }
 `;
 
 const Layout = ({children}) => {
