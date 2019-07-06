@@ -1,12 +1,12 @@
 ---
-title: 'Our (15gifts') Data Pipeline'
+title: 'Our Data Pipeline at 15gifts'
 date: '06/07/2019'
 featuredImage: "./our_new_data_pipeline.jpg"
 ---
 
 The data team is happier, reports are more reliable and we can spend time answering more interesting questions, all thanks to our new data pipeline. Here is what we are using and why.
 
-![A diagram of our (15gifts') data pipeline. Event logs from live clients are fed through Kinesis Firehose to S3 Buckets. Snowpipe then pipes these into the raw events table of our Snowflake data warehouse. Client config data and hardcoded lookups in google sheets are imported into reference tables in our data warehouse using Fivetran. dbt transforms the raw events and reference tables into more useful tables and views.](./our_new_data_pipeline.jpg)
+![A diagram of our data pipeline at 15gifts. Event logs from live clients are fed through Kinesis Firehose to S3 Buckets. Snowpipe then pipes these into the raw events table of our Snowflake data warehouse. Client config data and hardcoded lookups in google sheets are imported into reference tables in our data warehouse using Fivetran. dbt transforms the raw events and reference tables into more useful tables and views.](./our_new_data_pipeline.jpg)
 *A high-quality representation of our data pipeline.*
 
 ### Motivation
