@@ -13,12 +13,12 @@ const styles = `
     margin-top: 3rem;
     margin-bottom: 3rem;
 
+    @media (min-width: 480px) and (max-width: 787px) {
+      grid-template-columns: 1fr 480px 1fr;
+    }
+
     @media (max-width: 480px) {
-      grid-template-columns: 1fr;
-      grid-template-areas:
-        "header"
-        "main"
-        "footer";
+      grid-template-columns: 1fr 320px 1fr;
     }
 `;
 
