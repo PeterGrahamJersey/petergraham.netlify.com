@@ -35,8 +35,8 @@ const Header = () => {
         <p>Data Analyst, Brighton (UK)</p>
       </div>
       <ul>
-        <li><a href='https://github.com/PeterGrahamJersey' target='_blank' rel="noopener noreferrer"><FaGithubSquare size='1.5rem' color='#76BA8F'/></a></li>
-        <li><a href='https://www.linkedin.com/in/peter-graham/' target='_blank' rel="noopener noreferrer"><FaLinkedin size='1.5rem' color='#76BA8F'/></a></li>
+        <li><a href='https://github.com/PeterGrahamJersey' target='_blank' rel="noopener noreferrer"><FaGithubSquare size='1.5em' color='#76BA8F'/></a></li>
+        <li><a href='https://www.linkedin.com/in/peter-graham/' target='_blank' rel="noopener noreferrer"><FaLinkedin size='1.5em' color='#76BA8F'/></a></li>
       </ul>
     </div>
   )
